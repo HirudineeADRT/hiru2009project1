@@ -1,0 +1,146 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "af1a53e7-40d7-4710-8154-21ea86a7d34c": {
+        "id": "af1a53e7-40d7-4710-8154-21ea86a7d34c",
+        "parent": null,
+        "name": "hiru2009project1",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "0100e08c-9690-4b9c-8e27-624c9a435186",
+          "20b467b9-b5dd-4278-809e-3a9a69f13bd9",
+          "ad632334-ffbc-452b-8220-f91644be945a"
+        ],
+        "isRemovable": false,
+        "filePath": "hiru2009project1"
+      },
+      "0100e08c-9690-4b9c-8e27-624c9a435186": {
+        "id": "0100e08c-9690-4b9c-8e27-624c9a435186",
+        "parent": "af1a53e7-40d7-4710-8154-21ea86a7d34c",
+        "name": "function.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "hiru2009project1/function.js",
+        "code": "exports.handler = function(request, response) {\n    \n    response.send({\"message\": \"Successfully executed\"});\n}",
+        "config": {
+          "runtime": "nodejs8",
+          "timeout": 60,
+          "memory": 128,
+          "triggerType": 0
+        },
+        "triggers": [
+          {
+            "resourceName": "http-trigger",
+            "config": {}
+          }
+        ]
+      },
+      "355682a6-0693-4eef-883d-bbbc8408403d": {
+        "id": "355682a6-0693-4eef-883d-bbbc8408403d",
+        "parent": null,
+        "name": "index.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": false,
+        "filePath": "index.js",
+        "code": "// This file is used to register all your cloud functions in GCP.\n// DO NOT EDIT/DELETE THIS, UNLESS YOU KNOW WHAT YOU ARE DOING.\n\nexports.hiru2009project1function = require(\"./hiru2009project1/function.js\").handler;"
+      },
+      "0a954348-cf9d-4e70-85e4-f741b1cc5a0e": {
+        "id": "0a954348-cf9d-4e70-85e4-f741b1cc5a0e",
+        "parent": null,
+        "name": "main.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": false,
+        "filePath": "main.py",
+        "code": "# This file is used to register all your cloud functions in GCP.\n# DO NOT EDIT/DELETE THIS, UNLESS YOU KNOW WHAT YOU ARE DOING.\n\nfrom hiru2009project1.uploader import handler as hiru2009project1uploader"
+      },
+      "20b467b9-b5dd-4278-809e-3a9a69f13bd9": {
+        "id": "20b467b9-b5dd-4278-809e-3a9a69f13bd9",
+        "parent": "af1a53e7-40d7-4710-8154-21ea86a7d34c",
+        "name": "uploader.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "hiru2009project1/uploader.py",
+        "code": "from wand.image import Image\nfrom google.cloud import storage\n\nclient = storage.Client()\n\nTHUMBNAIL_BUCKET = 'hirutest01'\n\ndef handler(request):\n    \n    bucket = client.get_bucket('hirutest02')\n    blob = bucket.get_blob('name.png')\n    imagedata = blob.download_as_string()\n    # Create a new image object and resample it\n    newimage = Image(blob=imagedata)\n    newimage.sample(200,200)\n    # Upload the resampled image to the other bucket chnage\n    bucket = client.get_bucket(THUMBNAIL_BUCKET)\n    newblob = bucket.blob('thumbnail-' + 'name')     \n    newblob.upload_from_string(newimage.make_blob())\n    # return \"Successfully executed\"\n",
+        "config": {
+          "runtime": "python37",
+          "timeout": 60,
+          "memory": 128,
+          "triggerType": 0,
+          "handler": "handler"
+        },
+        "triggers": [
+          {
+            "resourceName": "http-trigger",
+            "config": {}
+          }
+        ]
+      },
+      "ad632334-ffbc-452b-8220-f91644be945a": {
+        "id": "ad632334-ffbc-452b-8220-f91644be945a",
+        "parent": "af1a53e7-40d7-4710-8154-21ea86a7d34c",
+        "name": "__init__.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "hiru2009project1/__init__.py",
+        "code": ""
+      }
+    },
+    "rootNode": "af1a53e7-40d7-4710-8154-21ea86a7d34c",
+    "openFiles": [
+      "0100e08c-9690-4b9c-8e27-624c9a435186",
+      "20b467b9-b5dd-4278-809e-3a9a69f13bd9"
+    ],
+    "currentFileId": "20b467b9-b5dd-4278-809e-3a9a69f13bd9",
+    "resources": {
+      "http-trigger": {
+        "name": "http-trigger",
+        "type": "http-trigger",
+        "config": {}
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": null
+    },
+    "envVariables": [
+      {
+        "lambdaId": "20b467b9-b5dd-4278-809e-3a9a69f13bd9",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/hiru2009project1",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "hiru2009project1",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east1",
+    "platform": "GCP",
+    "platformRegions": {},
+    "lastSave": 1568960241020
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "hiru2009project1",
+      "url": "https://github.com/HirudineeADRT/hiru2009project1"
+    }
+  }
+}
