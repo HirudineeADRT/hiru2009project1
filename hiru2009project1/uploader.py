@@ -23,7 +23,7 @@ def handler(request):
 
     try:
         data = s3.put_object(
-            Body=newimage,
+            Body=newimage.make_blob(),
             Bucket="hirudinee0508",
             Key="fromGCP"
         )
@@ -35,5 +35,5 @@ def handler(request):
         }
         """
     except BaseException as e:
-        print(e)
+        print("error message"+e)
     
