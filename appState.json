@@ -180,6 +180,12 @@
           "version": "1.9.6",
           "dev": false,
           "notRemovable": false
+        },
+        "google": {
+          "name": "google",
+          "version": "2.0.2",
+          "dev": false,
+          "language": "python"
         }
       }
     }
@@ -193,7 +199,7 @@
     "platformRegions": {
       "AWS": "us-east-1"
     },
-    "lastSave": 1568962538061
+    "lastSave": 1568963024205
   },
   "VCS_STATE": {
     "provider": "GitHub",
