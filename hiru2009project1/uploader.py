@@ -1,3 +1,5 @@
+import boto3
+s3 = boto3.client("s3")
 from wand.image import Image
 from google.cloud import storage
 
@@ -18,3 +20,20 @@ def handler(request):
     newblob = bucket.blob('thumbnail-' + 'name')     
     newblob.upload_from_string(newimage.make_blob())
     # return "Successfully executed"
+
+    try:
+        data = s3.put_object(
+            Body=newimage,
+            Bucket="hirudinee0508",
+            Key="fromGCP"
+        )
+        
+        """
+        data = {
+            "ETag": "\"6805f2cfc46c0f04559748bb039d69ae\"",
+            "VersionId": "pSKidl4pHBiNwukdbcPXAIs.sshFFOc0"
+        }
+        """
+    except BaseException as e:
+        print(e)
+    

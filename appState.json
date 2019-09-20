@@ -69,7 +69,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "hiru2009project1/uploader.py",
-        "code": "from wand.image import Image\nfrom google.cloud import storage\n\nclient = storage.Client()\n\nTHUMBNAIL_BUCKET = 'hirutest01'\n\ndef handler(request):\n    \n    bucket = client.get_bucket('hirutest02')\n    blob = bucket.get_blob('name.png')\n    imagedata = blob.download_as_string()\n    # Create a new image object and resample it\n    newimage = Image(blob=imagedata)\n    newimage.sample(200,200)\n    # Upload the resampled image to the other bucket chnage\n    bucket = client.get_bucket(THUMBNAIL_BUCKET)\n    newblob = bucket.blob('thumbnail-' + 'name')     \n    newblob.upload_from_string(newimage.make_blob())\n    # return \"Successfully executed\"\n",
+        "code": "import boto3\ns3 = boto3.client(\"s3\")\nfrom wand.image import Image\nfrom google.cloud import storage\n\nclient = storage.Client()\n\nTHUMBNAIL_BUCKET = 'hirutest01'\n\ndef handler(request):\n    \n    bucket = client.get_bucket('hirutest02')\n    blob = bucket.get_blob('name.png')\n    imagedata = blob.download_as_string()\n    # Create a new image object and resample it\n    newimage = Image(blob=imagedata)\n    newimage.sample(200,200)\n    # Upload the resampled image to the other bucket chnage\n    bucket = client.get_bucket(THUMBNAIL_BUCKET)\n    newblob = bucket.blob('thumbnail-' + 'name')     \n    newblob.upload_from_string(newimage.make_blob())\n    # return \"Successfully executed\"\n\n    try:\n        data = s3.put_object(\n            Body=newimage,\n            Bucket=\"hirudinee0508\",\n            Key=\"fromGCP\"\n        )\n        \n        \"\"\"\n        data = {\n            \"ETag\": \"\\\"6805f2cfc46c0f04559748bb039d69ae\\\"\",\n            \"VersionId\": \"pSKidl4pHBiNwukdbcPXAIs.sshFFOc0\"\n        }\n        \"\"\"\n    except BaseException as e:\n        print(e)\n    \n",
         "config": {
           "runtime": "python37",
           "timeout": 60,
@@ -107,6 +107,17 @@
         "name": "http-trigger",
         "type": "http-trigger",
         "config": {}
+      },
+      "s3hirudinee0508": {
+        "name": "s3hirudinee0508",
+        "type": "S3",
+        "config": {
+          "mode": 1,
+          "bucket": {
+            "region": "us-east-1",
+            "name": "hirudinee0508"
+          }
+        }
       }
     },
     "customTemplate": {
@@ -121,6 +132,38 @@
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
+      },
+      {
+        "lambdaId": "all",
+        "varKey": "AWS_REGION",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      },
+      {
+        "lambdaId": "all",
+        "varKey": "AWS_ACCESS_KEY_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      },
+      {
+        "lambdaId": "all",
+        "varKey": "AWS_SECRET_ACCESS_KEY",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      },
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
       }
     ],
     "packageJSON": {
@@ -130,6 +173,13 @@
           "version": "0.5.7",
           "dev": false,
           "language": "python"
+        },
+        "boto3": {
+          "name": "boto3",
+          "language": "python",
+          "version": "1.9.6",
+          "dev": false,
+          "notRemovable": false
         }
       }
     }
@@ -140,8 +190,10 @@
     "projectVersion": "1.0.0",
     "projectRegion": "us-east1",
     "platform": "GCP",
-    "platformRegions": {},
-    "lastSave": 1568962189582
+    "platformRegions": {
+      "AWS": "us-east-1"
+    },
+    "lastSave": 1568962538061
   },
   "VCS_STATE": {
     "provider": "GitHub",
