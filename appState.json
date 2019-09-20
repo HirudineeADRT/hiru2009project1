@@ -124,7 +124,14 @@
       }
     ],
     "packageJSON": {
-      "dependencies": {}
+      "dependencies": {
+        "Wand": {
+          "name": "Wand",
+          "version": "0.5.7",
+          "dev": false,
+          "language": "python"
+        }
+      }
     }
   },
   "PROJECT_META": {
@@ -134,7 +141,7 @@
     "projectRegion": "us-east1",
     "platform": "GCP",
     "platformRegions": {},
-    "lastSave": 1568960241020
+    "lastSave": 1568962189582
   },
   "VCS_STATE": {
     "provider": "GitHub",
