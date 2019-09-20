@@ -181,9 +181,9 @@
           "dev": false,
           "notRemovable": false
         },
-        "google": {
-          "name": "google",
-          "version": "2.0.2",
+        "google-cloud-storage": {
+          "name": "google-cloud-storage",
+          "version": "1.18.0",
           "dev": false,
           "language": "python"
         }
@@ -199,7 +199,7 @@
     "platformRegions": {
       "AWS": "us-east-1"
     },
-    "lastSave": 1568963024205
+    "lastSave": 1568963554378
   },
   "VCS_STATE": {
     "provider": "GitHub",
